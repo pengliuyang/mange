@@ -1,18 +1,63 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+<el-container>
+  <el-header height="80px"><Topbar/></el-header>
+  <el-container id="box">
+    <el-aside width="200px" v-if="!fun"><LeftMenu/></el-aside>
+    <el-main>
+    <router-view/>
+    </el-main>
+  </el-container>
+</el-container>
+
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+ import LeftMenu from '@/components/LeftMenu.vue'
+ import Topbar from '@/components/Topbar.vue'
 
 export default {
   name: 'Home',
+  data(){
+    return{
+       title:["/home/addtitle","/home/editphoto"]
+    }
+  },
   components: {
-    HelloWorld
+    // HelloWorld
+    LeftMenu,
+    Topbar
+  },
+  computed:{
+      fun(){
+         return this.title.includes(this.$route.path)
+      }
   }
 }
 </script>
+<style lang="less" scoped>
+// .home,.el-container,.el-menu,.el-header{
+//   height: 100%;
+// }
+.home,.el-container,.el-header{
+  padding:0 ;
+}
+.home{
+    font-family: "Source Han Serif CN";
+}
+.el-container .el-main{
+  margin-left: 20px;
+  padding: 50px;
+  overflow: visible;
+}
+.el-header{
+  background: #333;
+}
+#box{
+  width: 1300px;
+  margin:  0 auto;
+  margin-top: 20px;
+}
+</style>
